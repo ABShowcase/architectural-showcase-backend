@@ -115,6 +115,12 @@ initDB();
 // AUTH ROUTES
 // =====================
 
+// Root route
+app.get('/', (req, res) => {
+  res.json({ message: 'Architectural Showcase API is running!' });
+});
+
+
 // Register
 app.post('/api/auth/register', async (req, res) => {
   try {
