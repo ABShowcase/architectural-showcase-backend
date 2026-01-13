@@ -9,7 +9,8 @@ const nodemailer = require('nodemailer');
 const ExcelJS = require('exceljs');
 
 const app = express();
-
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 // Middleware
 app.use(cors());
 app.use(bodyParser.json({ limit: '50mb' }));
@@ -688,7 +689,10 @@ app.get('/api/admin/reports/suppliers', authenticateToken, async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
+// Serve React app for any route not matching API
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+});
 // =====================
 // START SERVER
 // =====================
